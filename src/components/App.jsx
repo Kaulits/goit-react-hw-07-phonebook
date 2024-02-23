@@ -4,6 +4,7 @@ import { ContactForm } from './ContactForm';
 import { ContactList } from './ContactList';
 import { Filter } from './Filter';
 import { nanoid } from 'nanoid';
+import { StyledWrapper } from './Styled';
 
 export class App extends Component {
  state = {
@@ -61,11 +62,16 @@ export class App extends Component {
 
     return (
       <div>
-        <h1>Phonebook</h1>
+        <StyledWrapper>
+           <h1>Phonebook</h1>
+
         <ContactForm onSubmit={this.handleAddContact} />
+    
+        
         <h2>Contacts</h2>
         <Filter value={filter} onChange={this.handleFilterChange} />
-        <ContactList contacts={filteredContacts} onDelete={this.handleDeleteContact} />
+          <ContactList contacts={filteredContacts} onDelete={this.handleDeleteContact} />
+          </StyledWrapper>
       </div>
     );
   }
