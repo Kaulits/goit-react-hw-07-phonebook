@@ -1,5 +1,7 @@
 
 import React, { useState } from 'react';
+import { StyledForm } from './Styled';
+
 
 export const ContactForm = ({ onSubmit }) => {
   const [name, setName] = useState('');
@@ -34,25 +36,26 @@ export const ContactForm = ({ onSubmit }) => {
   //   const { name, number } = this.state;
 
     return (
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          value={name}
-          onChange={handleChange}
-          placeholder="Enter name"
-          required
-        />
-        <input
-          type="tel"
-          name="number"
-          value={number}
-          onChange={handleChange}
-          placeholder="Enter phone number"
-          required
-        />
-        <button type="submit">Add contact</button>
-      </form>
+  <StyledForm onSubmit={handleSubmit}>
+      <input
+        type="text"
+        name="name"
+        value={name}
+        onChange={handleChange}
+        placeholder="Enter name"
+        required
+      />
+      <input
+        type="tel"
+        name="number"
+        value={number}
+        onChange={handleChange}
+        placeholder="Enter phone number"
+        required
+      />
+      <button type="submit">Add contact</button>
+    </StyledForm>
+
     );
   }
 

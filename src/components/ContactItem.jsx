@@ -1,11 +1,11 @@
 
 import React from 'react';
+import { StyledContactItem } from './Styled';
 
 export const ContactItem = ({ contact, onDelete }) => (
-  <li>
-    {contact.name}: {contact.number}
+  <StyledContactItem>
+    <span>{contact.name}: {contact.number}</span>
     <button onClick={() => onDelete(contact.id)}>Delete</button>
-  </li>
+  </StyledContactItem>
 );
-
  
