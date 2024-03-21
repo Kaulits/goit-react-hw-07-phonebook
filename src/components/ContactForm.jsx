@@ -1,63 +1,53 @@
-
 import React, { useState } from 'react';
-import { StyledForm } from './Styled';
 
+import {
+  StyledForm,
+  StyledTitle,
+  StyledDesc,
+  StyledBtn,
+} from '../styles/App.Styled';
+import { useDispatch } from 'react-redux';
+import { addContact } from '../redux/contactsSlice';
 
-export const ContactForm = ({ onSubmit }) => {
+export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  // state = {
-  //   name: '',
-  //   number: ''
-  // };
-
-  const handleChange = e => {
-      const { name, value } = e.target;
-    // this.setState({ [e.target.name]: e.target.value });
-     if (name === 'name') {
-      setName(value);
-    } else if (name === 'number') {
-      setNumber(value);
-    }
-  };
+  const dispatch = useDispatch();
 
   const handleSubmit = e => {
     e.preventDefault();
-    // const { name, number } = this.state;
-    if (name.trim() === '' || number.trim() === '') return;
- onSubmit({ name, number });
+    dispatch(addContact(name, number));
     setName('');
     setNumber('');
-    // this.props.onSubmit({ name, number });
-    // this.setState({ name: '', number: '' });
   };
 
-  // render() {
-  //   const { name, number } = this.state;
-
-    return (
-  <StyledForm onSubmit={handleSubmit}>
+  return (
+    <StyledForm onSubmit={handleSubmit}>
+      <StyledTitle>Phonebook</StyledTitle>
+      <StyledDesc>Name</StyledDesc>
       <input
         type="text"
         name="name"
-        value={name}
-        onChange={handleChange}
-        placeholder="Enter name"
+        title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
         required
+        value={name}
+        onChange={e => setName(e.target.value)}
+        placeholder="Name"
       />
+      <StyledDesc>Phone number</StyledDesc>
       <input
         type="tel"
         name="number"
-        value={number}
-        onChange={handleChange}
-        placeholder="Enter phone number"
+      
         required
+        value={number}
+        onChange={e => setNumber(e.target.value)}
+        placeholder="XXX-XXX-XXXX"
       />
-      <button type="submit">Add contact</button>
+
+      <StyledBtn type="submit">Add Contact</StyledBtn>
     </StyledForm>
+  );
+};
 
-    );
-  }
-
-
-
+export default ContactForm;
