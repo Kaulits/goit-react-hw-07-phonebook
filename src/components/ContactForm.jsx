@@ -7,16 +7,17 @@ import {
   StyledBtn,
 } from '../styles/App.Styled';
 import { useDispatch } from 'react-redux';
-import { addContact } from '../redux/contactsSlice';
+
+import { addContactThunk } from '../redux/operations';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setNumber] = useState('');
   const dispatch = useDispatch();
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(addContact(name, number));
+    dispatch(addContactThunk({name, phone, createdAt: new Date().toLocaleTimeString()}));
     setName('');
     setNumber('');
   };
@@ -37,10 +38,10 @@ export const ContactForm = () => {
       <StyledDesc>Phone number</StyledDesc>
       <input
         type="tel"
-        name="number"
+        name="phone"
       
         required
-        value={number}
+        value={phone}
         onChange={e => setNumber(e.target.value)}
         placeholder="XXX-XXX-XXXX"
       />

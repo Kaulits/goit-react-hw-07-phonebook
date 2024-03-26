@@ -1,4 +1,4 @@
-import { fetchIsDone, isError, isLoading } from "./contactsSlice";
+import { addContact, fetchIsDone, isError, isLoading, removeContact } from "./contactsSlice";
 import axios from "axios";
 
 
@@ -12,4 +12,23 @@ try {
 } catch (error) {
     dispatch(isError(error.message))
 }
+}
+
+export const deleteContactThunk = id => async dispatch => {
+    try {
+        await axios.delete(`contacts/${id}`)
+     
+        dispatch(removeContact(id))
+    } catch (error) {
+        dispatch(isError(error.message))
+    }
+}
+export const addContactThunk = body => async dispatch => {
+    try {
+       const {data} = await axios.post(`/contacts`, body)
+     
+        dispatch(addContact(data))
+    } catch (error) {
+        dispatch(isError(error.message))
+    }
 }

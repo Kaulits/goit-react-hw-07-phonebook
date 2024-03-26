@@ -1,4 +1,4 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   contacts: [],
@@ -22,24 +22,8 @@ export const contactsSlice = createSlice({
       state.error = payload
       state.loading = false
     },
-    addContact: {
-      prepare: (contactName, number) => {
-        return {
-          payload: {
-            id: nanoid(),
-            contactName,
-            number,
-          },
-        };
-      },
-      reducer: (state, action) => {
-        const findByName = state.contacts.find(
-          contact => contact.contactName === action.payload.contactName
-        );
-        if (!findByName) {
-          state.contacts.push(action.payload);
-        } else alert(`${findByName.contactName} is already in contacts`);
-      },
+    addContact: (state, {payload})=> {
+      state.contacts.push(payload)
     },
     removeContact: (state, action) => {
       state.contacts = state.contacts.filter(

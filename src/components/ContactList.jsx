@@ -6,9 +6,9 @@ import {
   StyledBtnDelete,
 } from '../styles/App.Styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeContact } from '../redux/contactsSlice';
+
 import { useEffect } from 'react';
-import { fetchData } from '../redux/operations';
+import { deleteContactThunk, fetchData } from '../redux/operations';
 
 export const ContactList = () => {
   const { contacts, loading } = useSelector(state => state.contacts);
@@ -43,7 +43,7 @@ export const ContactList = () => {
               {contact.name}: <span>{contact.phone}</span>
             </StyledSpan>
             <StyledBtnDelete
-              onClick={() => dispatch(removeContact(contact.id))}
+              onClick={() => dispatch(deleteContactThunk(contact.id))}
             >
               delete
             </StyledBtnDelete>
