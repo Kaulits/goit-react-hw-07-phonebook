@@ -11,30 +11,7 @@ const initialState = {
 export const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
-  reducers: {
-    fetchIsDone: (state, { payload }) => {
-      state.contacts = payload
-      state.loading = false
-    },
-    isLoading:  (state, { payload }) => {
-      state.loading = true
-    },
-    isError:  (state, { payload }) => {
-      state.error = payload
-      state.loading = false
-    },
-    addContact: (state, {payload})=> {
-      state.contacts.push(payload)
-    },
-    removeContact: (state, action) => {
-      state.contacts = state.contacts.filter(
-        contact => contact.id !== action.payload
-      );
-    },
-    updateFilter: (state, action) => {
-      state.filter = action.payload;
-    },
-  },
+ 
   extraReducers: builder => {
     builder.addCase(fetchDataThunk.pending, state => {
       state.loading = true
