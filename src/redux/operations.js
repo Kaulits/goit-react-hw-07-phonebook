@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { addContact, fetchIsDone, isError, isLoading, removeContact } from "./contactsSlice";
+
 import axios from "axios";
 
 
@@ -16,31 +16,50 @@ export const fetchDataThunk = createAsyncThunk('fetchAll', async (_, thunkAPI) =
 })
 
 
-export const fetchData = () => async dispatch => {
-try {
-    dispatch(isLoading())
-    const {data} = await axios.get('/contacts')
-    dispatch(fetchIsDone(data))
-} catch (error) {
-    dispatch(isError(error.message))
-}
-}
+// export const fetchData = () => async dispatch => {
+// try {
+//     dispatch(isLoading())
+//     const {data} = await axios.get('/contacts')
+//     dispatch(fetchIsDone(data))
+// } catch (error) {
+//     dispatch(isError(error.message))
+// }
+// }
 
-export const deleteContactThunk = id => async dispatch => {
-    try {
-        await axios.delete(`contacts/${id}`)
+// export const deleteContactThunk = id => async dispatch => {
+//     try {
+//         await axios.delete(`contacts/${id}`)
      
-        dispatch(removeContact(id))
+//         dispatch(removeContact(id))
+//     } catch (error) {
+//         dispatch(isError(error.message))
+//     }
+// }
+
+export const deleteContactThunk = createAsyncThunk('deleteContact', async (id, thunkAPI) => {
+    try {
+        const { data } = await axios.delete(`contacts/${id}`)
+        return data.id
     } catch (error) {
-        dispatch(isError(error.message))
+        return thunkAPI.rejectWithValue(error.message)
     }
-}
-export const addContactThunk = body => async dispatch => {
+})
+
+// export const addContactThunk = body => async dispatch => {
+//     try {
+//        const {data} = await axios.post(`/contacts`, body)
+     
+//         dispatch(addContact(data))
+//     } catch (error) {
+//         dispatch(isError(error.message))
+//     }
+// }
+
+export const addContactThunk = createAsyncThunk('addContact', async (body, thunkAPI) => {
     try {
        const {data} = await axios.post(`/contacts`, body)
-     
-        dispatch(addContact(data))
+        return data
     } catch (error) {
-        dispatch(isError(error.message))
+        return thunkAPI.rejectWithValue(error.message)
     }
-}
+})
